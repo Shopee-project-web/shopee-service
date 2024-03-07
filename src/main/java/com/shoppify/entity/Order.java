@@ -28,7 +28,7 @@ public class Order {
    @Column(name = "TOTAL_COST")
    private long totalCost;
 
-   @Column(name = "TRANSOPRT")
+   @Column(name = "TRANSPORT")
    private int transport;
 
    @Column(name = "TOTAL_PAYMENT")

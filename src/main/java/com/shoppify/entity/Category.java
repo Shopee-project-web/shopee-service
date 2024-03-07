@@ -21,8 +21,8 @@ public class Category {
    @Column(name = "NAME")
    private String name;
 
-   @Column(name = "IS_SHOWN")
-   private boolean isShown;
+   @Column(name = "IS_SHOW")
+   private boolean isShow;
 
    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
    private List<SubCategory> subCategories ;

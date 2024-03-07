@@ -31,8 +31,8 @@ public class Product {
    @Column(name = "DESCRIPTION")
    private String description;
 
-   @Column(name = "IS_SHOWN")
-   private boolean isShown;
+   @Column(name = "IS_SHOW")
+   private boolean isShow;
 
    @ManyToOne
    @JoinColumn(name = "CATEGORY_ID")
