@@ -34,18 +34,6 @@ public class User {
    @Column(name="IS_DELETED")
    private boolean isDeleted;
 
-   @Column(name = "FULL_NAME")
-   private String fullName;
-
-   @Column(name = "BIRTH_DATE")
-   private Date birthDate;
-
-   @Column(name = "GENDER", unique = true)
-   private String gender;
-
-   @Column(name = "USER_IMAGE_URL")
-   private String userImageUrl;
-
    @ManyToMany(fetch = FetchType.LAZY)
    @JoinTable(name = "USER_ROLE",
            joinColumns = @JoinColumn(name = "USER_ID"),
