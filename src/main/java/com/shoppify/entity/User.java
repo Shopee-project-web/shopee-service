@@ -44,5 +44,6 @@ public class User {
    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
    private List<Address> addressList ;
 
-
+   @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+   private UserProfile userProfile;
 }
