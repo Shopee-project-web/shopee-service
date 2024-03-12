@@ -1,6 +1,6 @@
 package com.shoppify.service;
 
-import com.shoppify.dto.response.UserDto;
+import com.shoppify.dto.payload.response.UserDto;
 
 import java.util.List;
 

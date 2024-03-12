@@ -1,4 +1,4 @@
-package com.shoppify.dto.request;
+package com.shoppify.dto.payload.request;
 
 import com.shoppify.service.UserService;
 import com.shoppify.service.impl.JwtService;

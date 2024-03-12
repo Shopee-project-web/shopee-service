@@ -34,7 +34,7 @@ public class User {
    @Column(name="IS_DELETED")
    private boolean isDeleted;
 
-   @ManyToMany(fetch = FetchType.LAZY)
+   @ManyToMany(fetch = FetchType.EAGER)
    @JoinTable(name = "USER_ROLE",
            joinColumns = @JoinColumn(name = "USER_ID"),
            inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
@@ -46,4 +46,7 @@ public class User {
 
    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
    private UserProfile userProfile;
+
+   @OneToOne(mappedBy = "user", fetch = FetchType.EAGER)
+   private RefreshToken refreshToken;
 }

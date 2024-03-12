@@ -1,7 +1,6 @@
 package com.shoppify.service.impl;
 
-import com.shoppify.dto.response.UserDto;
-import com.shoppify.entity.User;
+import com.shoppify.dto.payload.response.UserDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
