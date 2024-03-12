@@ -1,6 +1,6 @@
 package com.shoppify.controller;
 
-import com.shoppify.dto.UserDto;
+import com.shoppify.dto.response.UserDto;
 import com.shoppify.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

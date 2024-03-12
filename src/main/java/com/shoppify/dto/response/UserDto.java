@@ -1,4 +1,4 @@
-package com.shoppify.dto;
+package com.shoppify.dto.response;
 
 import lombok.Data;
 

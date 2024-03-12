@@ -1,7 +1,6 @@
 package com.shoppify.service;
 
-import com.shoppify.dto.UserDto;
-import com.shoppify.entity.User;
+import com.shoppify.dto.response.UserDto;
 
 import java.util.List;
 
