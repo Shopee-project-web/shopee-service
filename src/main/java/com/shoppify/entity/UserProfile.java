@@ -31,14 +31,8 @@ public class UserProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
-    @Column(name = "USER_NAME")
-    private String username;
     @Column(name = "FULL_NAME")
     private String fullName;
-    @Column(name = "EMAIL")
-    private String email;
-    @Column(name = "PHONE_NUMBER")
-    private String phoneNumber;
     @Column(name = "GENDER")
     private String gender;
     @Column(name = "DATE_OF_BIRTH")

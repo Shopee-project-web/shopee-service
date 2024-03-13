@@ -26,15 +26,15 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final RoleRepository roleRepository;
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
     private final UserConverter userConverter;
 
-    public boolean register(RegisterRequest requestDto){
-        if (!userRepository.existsUserByUsername(requestDto.getUsername())){
+    public boolean register(RegisterRequest request){
+        if (!userRepository.existsUserByUsername(request.getUsername())){
             Role role = roleRepository.findByName("CUSTOMER");
             if (role != null) {
-                User user = userConverter.convertDtoToUser(requestDto);
-                user.setPassword(passwordEncoder.encode(requestDto.getPassword()));
+                User user = userConverter.convertDtoToUser(request);
+                user.setPassword(passwordEncoder.encode(request.getPassword()));
                 List<Role> roles = new ArrayList<>();
                 roles.add(role);
                 user.setRoleList(roles);

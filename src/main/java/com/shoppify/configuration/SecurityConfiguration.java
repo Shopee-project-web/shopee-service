@@ -2,6 +2,7 @@ package com.shoppify.configuration;
 
 import com.shoppify.security.JwtAuthFilter;
 import com.shoppify.service.impl.UserDetailServiceImpl;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,16 +20,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfiguration {
-
     private final UserDetailsService userDetailService;
     private final JwtAuthFilter jwtAuthFilter;
-
-    public SecurityConfiguration(UserDetailServiceImpl userDetailService, JwtAuthFilter jwtAuthFilter) {
-        this.userDetailService = userDetailService;
-        this.jwtAuthFilter = jwtAuthFilter;
-    }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         return http

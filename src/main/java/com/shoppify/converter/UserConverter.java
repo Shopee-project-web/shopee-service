@@ -2,18 +2,16 @@ package com.shoppify.converter;
 
 import com.shoppify.dto.payload.request.RegisterRequest;
 import com.shoppify.entity.User;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class UserConverter {
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    public UserConverter(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
-
-    public User convertDtoToUser(RegisterRequest requestDto){
-        return modelMapper.map(requestDto,User.class);
+    public User convertDtoToUser(RegisterRequest request){
+        return modelMapper.map(request,User.class);
     }
 }

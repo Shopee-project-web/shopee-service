@@ -4,19 +4,16 @@ import com.shoppify.service.RefreshTokenService;
 import com.shoppify.entity.RefreshToken;
 import com.shoppify.repository.RefreshTokenRepository;
 import com.shoppify.repository.UserRepository;
+import lombok.AllArgsConstructor;
 
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
+@AllArgsConstructor
 public class RefreshTokenServiceImpl implements RefreshTokenService {
-    private UserRepository userRepository;
-    private RefreshTokenRepository tokenRepository;
-
-    public RefreshTokenServiceImpl(UserRepository userRepository, RefreshTokenRepository tokenRepository) {
-        this.userRepository = userRepository;
-        this.tokenRepository = tokenRepository;
-    }
+    private final UserRepository userRepository;
+    private final RefreshTokenRepository tokenRepository;
 
     @Override
     public RefreshToken createNewToken(String username) {
