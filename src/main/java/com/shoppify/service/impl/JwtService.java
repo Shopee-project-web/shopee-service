@@ -1,6 +1,6 @@
 package com.shoppify.service.impl;
 
-import com.shoppify.dto.payload.response.UserDto;
+import com.shoppify.dto.payload.request.AuthRequestDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -28,7 +28,7 @@ public class JwtService {
     private Claims extractAllClaims(String token){
         return Jwts
                 .parserBuilder()
-                .setSigningKey(getSignInKey())
+                .setSigningKey(getSignKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
@@ -39,17 +39,17 @@ public class JwtService {
         return resolver.apply(claims);
     }
 
-    private String generateToken(UserDto userDto){
+    public String generateToken(AuthRequestDto authRequestDto){
         return Jwts
                 .builder()
-                .setSubject(userDto.getUsername())
+                .setSubject(authRequestDto.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+100*60*1))
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .setExpiration(new Date(System.currentTimeMillis()+20000*60*1))
+                .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    private SecretKey getSignInKey(){
+    private SecretKey getSignKey(){
         byte[] keyBytes = Decoders.BASE64URL.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }

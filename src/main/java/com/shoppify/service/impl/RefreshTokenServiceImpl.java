@@ -1,10 +1,9 @@
 package com.shoppify.service.impl;
 
+import com.shoppify.service.RefreshTokenService;
 import com.shoppify.entity.RefreshToken;
-import com.shoppify.entity.User;
 import com.shoppify.repository.RefreshTokenRepository;
 import com.shoppify.repository.UserRepository;
-import com.shoppify.service.RefreshTokenService;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -22,7 +21,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     @Override
     public RefreshToken createNewToken(String username) {
         RefreshToken refreshToken =  RefreshToken.builder()
-                .user(userRepository.findUserByUsername(username))
+                .user(userRepository.findByUsername(username))
                 .token(UUID.randomUUID().toString())
                 .expiryDate(Instant.now().plusMillis(600000))
                 .build();
