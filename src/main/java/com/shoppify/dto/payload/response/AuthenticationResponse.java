@@ -1,17 +1,15 @@
-package com.shoppify.dto.payload.request;
+package com.shoppify.dto.payload.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class LoginRequestDto {
-    private String username;
-    private String password;
+@Data
+public class AuthenticationResponse {
+    private String accessToken;
+
 }
-
-
