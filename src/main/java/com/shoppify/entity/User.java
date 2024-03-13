@@ -1,9 +1,9 @@
 package com.shoppify.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -17,7 +17,7 @@ public class User {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(name="ID")
-   private long id;
+   private Long id;
 
    @Column(name = "PHONE_NUMBER" , unique = true, nullable = false)
    private String phoneNumber;
@@ -34,15 +34,20 @@ public class User {
    @Column(name="IS_DELETED")
    private boolean isDeleted;
 
-   @ManyToMany(fetch = FetchType.LAZY)
+   @ManyToMany(fetch = FetchType.EAGER)
    @JoinTable(name = "USER_ROLE",
            joinColumns = @JoinColumn(name = "USER_ID"),
            inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
    private List<Role> roleList;
 
-
+   @JsonIgnore
    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
    private List<Address> addressList ;
 
+   @JsonIgnore
+   @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+   private UserProfile userProfile;
 
+//   @OneToOne(mappedBy = "user", fetch = FetchType.EAGER)
+//   private RefreshToken refreshToken;
 }
