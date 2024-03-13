@@ -1,8 +1,8 @@
 package com.shoppify.service.impl;
 
 import com.shoppify.converter.UserConverter;
-import com.shoppify.dto.payload.request.LoginRequestDto;
-import com.shoppify.dto.payload.request.RegisterRequestDto;
+import com.shoppify.dto.payload.request.LoginRequest;
+import com.shoppify.dto.payload.request.RegisterRequest;
 import com.shoppify.dto.payload.response.AuthenticationResponse;
 import com.shoppify.entity.Role;
 import com.shoppify.entity.User;
@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -30,7 +29,7 @@ public class AuthenticationService {
     private AuthenticationManager authenticationManager;
     private final UserConverter userConverter;
 
-    public boolean register(RegisterRequestDto requestDto){
+    public boolean register(RegisterRequest requestDto){
         if (!userRepository.existsUserByUsername(requestDto.getUsername())){
             Role role = roleRepository.findByName("CUSTOMER");
             if (role != null) {
@@ -48,15 +47,15 @@ public class AuthenticationService {
         return false;
     }
 
-    public AuthenticationResponse loginAuthenticate(LoginRequestDto loginRequestDto){
+    public AuthenticationResponse loginAuthenticate(LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                loginRequestDto.getUsername(),
-                loginRequestDto.getPassword()
+                loginRequest.getUsername(),
+                loginRequest.getPassword()
             )
         );
         if (authentication.isAuthenticated()){
             return AuthenticationResponse.builder()
-                    .accessToken(jwtService.generateToken(loginRequestDto))
+                    .accessToken(jwtService.generateToken(loginRequest))
                     .build();
         }else {
             throw new UsernameNotFoundException("Username isn't found");

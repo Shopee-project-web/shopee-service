@@ -1,6 +1,6 @@
 package com.shoppify.service.impl;
 
-import com.shoppify.dto.payload.request.LoginRequestDto;
+import com.shoppify.dto.payload.request.LoginRequest;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -39,10 +39,10 @@ public class JwtService {
         return resolver.apply(claims);
     }
 
-    public String generateToken(LoginRequestDto loginRequestDto){
+    public String generateToken(LoginRequest loginRequest){
         return Jwts
                 .builder()
-                .setSubject(loginRequestDto.getUsername())
+                .setSubject(loginRequest.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+20000*60*1))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)

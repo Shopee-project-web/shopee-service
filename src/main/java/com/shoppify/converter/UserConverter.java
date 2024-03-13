@@ -1,6 +1,6 @@
 package com.shoppify.converter;
 
-import com.shoppify.dto.payload.request.RegisterRequestDto;
+import com.shoppify.dto.payload.request.RegisterRequest;
 import com.shoppify.entity.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ public class UserConverter {
         this.modelMapper = modelMapper;
     }
 
-    public User convertDtoToUser(RegisterRequestDto requestDto){
+    public User convertDtoToUser(RegisterRequest requestDto){
         return modelMapper.map(requestDto,User.class);
     }
 }
