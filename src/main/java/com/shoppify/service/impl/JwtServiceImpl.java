@@ -1,8 +1,6 @@
 package com.shoppify.service.impl;
 
-import com.shoppify.dto.payload.request.LoginRequest;
 import com.shoppify.service.JwtService;
-import com.shoppify.service.TokenBlackListService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -10,7 +8,6 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;

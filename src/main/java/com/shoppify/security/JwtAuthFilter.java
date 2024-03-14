@@ -1,7 +1,6 @@
 package com.shoppify.security;
 
 import com.shoppify.service.JwtService;
-import com.shoppify.service.TokenBlackListService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

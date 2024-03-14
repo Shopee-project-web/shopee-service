@@ -38,11 +38,6 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username is already exist, please choice another one");
     }
 
-    @GetMapping("/ping")
-    public String sayHello(){
-        return "Hello world!";
-    }
-
     @PostMapping("/logout")
     public String logout(){
         SecurityContextHolder.clearContext();
