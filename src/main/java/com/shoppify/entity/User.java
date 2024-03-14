@@ -48,6 +48,4 @@ public class User {
    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
    private UserProfile userProfile;
 
-//   @OneToOne(mappedBy = "user", fetch = FetchType.EAGER)
-//   private RefreshToken refreshToken;
 }

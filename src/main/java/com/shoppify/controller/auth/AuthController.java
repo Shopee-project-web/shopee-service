@@ -4,11 +4,14 @@ import com.shoppify.dto.payload.request.LoginRequest;
 import com.shoppify.dto.payload.request.RegisterRequest;
 import com.shoppify.dto.payload.response.AuthenticationResponse;
 import com.shoppify.service.impl.AuthenticationService;
-import com.shoppify.service.impl.JwtService;
+import com.shoppify.service.impl.JwtServiceImpl;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,12 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class AuthController {
     private final AuthenticationManager authenticationManager;
-    private final JwtService jwtService;
+    private final JwtServiceImpl jwtServiceImpl;
     private final AuthenticationService authenticationService;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> getAccessToken(@RequestBody LoginRequest request){
-        return ResponseEntity.ok(authenticationService.loginAuthenticate(request));
+    public ResponseEntity<AuthenticationResponse> getAccessToken(@RequestBody LoginRequest request, HttpServletResponse response){
+        return authenticationService.loginAuthenticate(request,response);
     }
 
     @PostMapping("/register")
@@ -33,5 +36,16 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.CREATED).body("Create user successfully!");
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username is already exist, please choice another one");
+    }
+
+    @GetMapping("/ping")
+    public String sayHello(){
+        return "Hello world!";
+    }
+
+    @PostMapping("/logout")
+    public String logout(){
+        SecurityContextHolder.clearContext();
+        return "logged out successfully!";
     }
 }
