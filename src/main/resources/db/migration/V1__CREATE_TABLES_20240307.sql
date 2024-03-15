@@ -77,22 +77,22 @@ CREATE TABLE IF NOT EXISTS `SIZE` (
     );
 
 
-CREATE TABLE IF NOT EXISTS CLASSIFY (
-                                        ID INT AUTO_INCREMENT PRIMARY KEY,
-                                        NAME VARCHAR(50) NOT NULL,
-    IS_SHOW BOOLEAN NOT NULL DEFAULT 1
-    );
+-- CREATE TABLE IF NOT EXISTS CLASSIFY (
+--                                         ID INT AUTO_INCREMENT PRIMARY KEY,
+--                                         NAME VARCHAR(50) NOT NULL,
+--     IS_SHOW BOOLEAN NOT NULL DEFAULT 1
+--     );
 
 CREATE TABLE IF NOT EXISTS VARIANT (
                                        ID BIGINT AUTO_INCREMENT PRIMARY KEY,
                                        COLOR_ID INT NOT NULL,
                                        SIZE_ID INT NOT NULL,
-                                       CLASSIFY_ID INT NOT NULL,
+--                                        CLASSIFY_ID INT NOT NULL,
                                        PRODUCT_ID BIGINT NOT NULL,
                                        IS_SHOW BOOLEAN NOT NULL DEFAULT 1,
                                        FOREIGN KEY (COLOR_ID) REFERENCES COLOR(ID),
     FOREIGN KEY (SIZE_ID) REFERENCES SIZE(ID),
-    FOREIGN KEY (CLASSIFY_ID) REFERENCES CLASSIFY(ID),
+--     FOREIGN KEY (CLASSIFY_ID) REFERENCES CLASSIFY(ID),
     FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCT(ID)
     );
 
