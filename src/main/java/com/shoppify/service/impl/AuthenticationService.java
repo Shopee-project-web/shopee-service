@@ -8,7 +8,11 @@ import com.shoppify.entity.Role;
 import com.shoppify.entity.User;
 import com.shoppify.repository.RoleRepository;
 import com.shoppify.repository.UserRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,7 +28,7 @@ import java.util.List;
 public class AuthenticationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
+    private final JwtServiceImpl jwtServiceImpl;
     private final RoleRepository roleRepository;
     private final AuthenticationManager authenticationManager;
     private final UserConverter userConverter;
@@ -47,16 +51,25 @@ public class AuthenticationService {
         return false;
     }
 
-    public AuthenticationResponse loginAuthenticate(LoginRequest loginRequest){
+    public ResponseEntity<AuthenticationResponse> loginAuthenticate(LoginRequest loginRequest,HttpServletResponse response){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.getUsername(),
                 loginRequest.getPassword()
             )
         );
         if (authentication.isAuthenticated()){
-            return AuthenticationResponse.builder()
-                    .accessToken(jwtService.generateToken(loginRequest))
+            String accessToken = jwtServiceImpl.generateToken(loginRequest.getUsername());
+            ResponseCookie cookie = ResponseCookie.from("accessToken",accessToken)
+                    .httpOnly(true)
+                    .secure(false)
+                    .path("/")
+                    .maxAge(18000)
                     .build();
+            response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+            return ResponseEntity.ok()
+                    .body(AuthenticationResponse.builder()
+                            .accessToken(accessToken)
+                            .build());
         }else {
             throw new UsernameNotFoundException("Username isn't found");
         }
