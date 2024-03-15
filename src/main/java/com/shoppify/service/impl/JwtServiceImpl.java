@@ -53,8 +53,9 @@ public class JwtServiceImpl implements JwtService {
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
+
     @Override
-    public SecretKey getSignKey(){
+    public SecretKey getSignKey() {
         byte[] keyBytes = Decoders.BASE64URL.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }

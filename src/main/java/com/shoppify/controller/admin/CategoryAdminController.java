@@ -37,7 +37,7 @@ public class CategoryAdminController {
    public ResponseEntity<CommonResponse> updateCategory(@PathVariable Long id,
                                                         @RequestBody CategoryRequest request) {
       CommonResponse commonResponse = categoryService.updateCategory(id,request);
+      CommonResponse commonResponse = categoryService.updateCategory(id, request);
       return new ResponseEntity<>(commonResponse, commonResponse.getStatusCode());
    }
-
 }
