@@ -8,9 +8,11 @@ import com.shoppify.entity.Role;
 import com.shoppify.entity.User;
 import com.shoppify.repository.RoleRepository;
 import com.shoppify.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -73,5 +75,16 @@ public class AuthenticationService {
         }else {
             throw new UsernameNotFoundException("Username isn't found");
         }
+    }
+
+    public ResponseEntity<String> logoutAuthenticate(HttpServletRequest request){
+        String authHeader = request.getHeader("Authorization");
+        String token = null;
+        if (authHeader!= null && authHeader.startsWith("Bearer")){
+            token = authHeader.substring(7);
+            Long expiryAfterWriteSeconds = jwtServiceImpl.getRemainingTime(token);
+            jwtServiceImpl.putTokenWithExpiry(token,expiryAfterWriteSeconds);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Logged out successfully");
     }
 }

@@ -1,6 +1,5 @@
 package com.shoppify.service;
 
-import com.shoppify.dto.payload.request.LoginRequest;
 import io.jsonwebtoken.Claims;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -24,4 +23,6 @@ public interface JwtService {
     boolean validateToken(String token, UserDetails userDetails);
 
     boolean isTokenExpired(String token);
+
+    Long getRemainingTime(String token);
 }

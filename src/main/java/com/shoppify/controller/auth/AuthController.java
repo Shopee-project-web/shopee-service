@@ -5,6 +5,7 @@ import com.shoppify.dto.payload.request.RegisterRequest;
 import com.shoppify.dto.payload.response.AuthenticationResponse;
 import com.shoppify.service.impl.AuthenticationService;
 import com.shoppify.service.impl.JwtServiceImpl;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -39,8 +40,14 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public String logout(){
+    public String logout(HttpServletRequest request){
         SecurityContextHolder.clearContext();
+        authenticationService.logoutAuthenticate(request);
         return "logged out successfully!";
+    }
+
+    @GetMapping("/ping")
+    public String sayHello(){
+        return "Hello";
     }
 }
