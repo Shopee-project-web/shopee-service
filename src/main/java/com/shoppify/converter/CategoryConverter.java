@@ -10,7 +10,7 @@ import java.util.List;
 
 @Component
 public class CategoryConverter {
-   public Category toEntity(CategoryRequest dto) {
+   public Category toEntityCategory(CategoryRequest dto) {
 
       Category category = new Category();
 
@@ -19,7 +19,7 @@ public class CategoryConverter {
       return category;
    }
 
-   public CategoryResponse toDto(Category entity) {
+   public CategoryResponse toDtoCategory(Category entity) {
       return CategoryResponse.builder()
               .id(entity.getId())
               .name(entity.getName())
@@ -27,15 +27,15 @@ public class CategoryConverter {
               .build();
    }
 
-   public List<CategoryResponse> toListDto(List<Category> categoryList) {
+   public List<CategoryResponse> toDtoCategoryList(List<Category> categoryList) {
 
-      List<CategoryResponse> list = new ArrayList<>();
+      List<CategoryResponse> categoryResponseList = new ArrayList<>();
 
       for (Category category : categoryList) {
 
-         list.add(toDto(category));
+         categoryResponseList.add(toDtoCategory(category));
       }
 
-      return list;
+      return categoryResponseList;
    }
 }

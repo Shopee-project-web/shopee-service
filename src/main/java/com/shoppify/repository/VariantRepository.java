@@ -1,7 +1,7 @@
 package com.shoppify.repository;
 
-import com.shoppify.entity.ProductImage;
+import com.shoppify.entity.Variant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProductImageRepository extends JpaRepository<ProductImage,Long> {
+public interface VariantRepository extends JpaRepository<Variant,Long> {
 }

@@ -1,8 +1,11 @@
 package com.shoppify.repository;
 
+import com.shoppify.entity.Color;
 import com.shoppify.entity.Size;
-import com.shoppify.entity.Variant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SizeRepository extends JpaRepository<Size,Long> {
+import java.util.Optional;
+
+public interface ColorRepository extends JpaRepository<Color,Long> {
+   Optional<Color> findByName(String name);
 }
