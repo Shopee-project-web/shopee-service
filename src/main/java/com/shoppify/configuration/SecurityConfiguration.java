@@ -29,7 +29,7 @@ public class SecurityConfiguration {
         return http.
                 csrf().disable()
                 .authorizeHttpRequests(
-                        req -> req.requestMatchers("api/v1/users/login","api/v1/users/register")
+                        req -> req.requestMatchers("api/v1/auths/login","api/v1/auths/register")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
