@@ -19,8 +19,8 @@ public class ProductImage {
    @Column(name = "URL")
    private String url;
 
-   @Column(name = "IS_DELETED")
-   private boolean isDeleted;
+//   @Column(name = "IS_DELETED")
+//   private boolean isDeleted;
 
    @Column(name = "IS_SHOW")
    private boolean isShow;

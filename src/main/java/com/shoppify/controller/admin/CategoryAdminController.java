@@ -39,5 +39,4 @@ public class CategoryAdminController {
       CommonResponse commonResponse = categoryService.updateCategory(id,request);
       return new ResponseEntity<>(commonResponse, commonResponse.getStatusCode());
    }
-
 }

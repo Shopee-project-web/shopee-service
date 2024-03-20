@@ -27,9 +27,9 @@ public class Variant {
    @JoinColumn(name = "SIZE_ID")
    private Size size;
 
-   @ManyToOne
-   @JoinColumn(name = "CLASSIFY_ID")
-   private Classify classify;
+//   @ManyToOne
+//   @JoinColumn(name = "CLASSIFY_ID")
+//   private Classify classify;
 
    @ManyToOne
    @JoinColumn(name="PRODUCT_ID")
