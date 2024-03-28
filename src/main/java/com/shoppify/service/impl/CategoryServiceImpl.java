@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
          commonResponse.setMessage("Categories not found");
          commonResponse.setStatusCode(HttpStatus.NOT_FOUND);
       } else {
-         List<CategoryResponse> categoryResponseList = categoryConverter.toListDto(categoryList);
+         List<CategoryResponse> categoryResponseList = categoryConverter.toDtoCategoryList(categoryList);
 
          commonResponse.setData(categoryResponseList);
          commonResponse.setMessage("Accessed the categories successfully");
@@ -52,10 +52,10 @@ public class CategoryServiceImpl implements CategoryService {
                  .statusCode(HttpStatus.BAD_REQUEST).build();
       }
 
-      Category category = categoryConverter.toEntity(request);
+      Category category = categoryConverter.toEntityCategory(request);
       categoryRepository.save(category);
 
-      CategoryResponse categoryResponse = categoryConverter.toDto(category);
+      CategoryResponse categoryResponse = categoryConverter.toDtoCategory(category);
 
       return CommonResponse.builder()
               .data(categoryResponse)
@@ -70,7 +70,7 @@ public class CategoryServiceImpl implements CategoryService {
          Category existingCategory = categoryRepository.findById(id)
                  .orElseThrow(() -> new RuntimeException("Category not found"));
 
-         Category updatedCategory = categoryConverter.toEntity(request);
+         Category updatedCategory = categoryConverter.toEntityCategory(request);
 
          existingCategory.setName(updatedCategory.getName());
          existingCategory.setShow(updatedCategory.isShow());
@@ -78,7 +78,7 @@ public class CategoryServiceImpl implements CategoryService {
          categoryRepository.save(existingCategory);
 
          return CommonResponse.builder()
-                 .data(categoryConverter.toDto(existingCategory))
+                 .data(categoryConverter.toDtoCategory(existingCategory))
                  .message("Category updated successfully")
                  .statusCode(HttpStatus.OK).build();
       } catch (Exception e) {
@@ -97,7 +97,7 @@ public class CategoryServiceImpl implements CategoryService {
 
          if (optionalCategory.isPresent()) {
             Category category = optionalCategory.get();
-            CategoryResponse categoryShowResponse = categoryConverter.toDto(category);
+            CategoryResponse categoryShowResponse = categoryConverter.toDtoCategory(category);
 
             return CommonResponse.builder()
                     .data(categoryShowResponse)

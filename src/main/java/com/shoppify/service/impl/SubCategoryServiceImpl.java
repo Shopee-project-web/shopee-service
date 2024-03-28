@@ -35,7 +35,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
          commonResponse.setMessage("SubCategories not found");
          commonResponse.setStatusCode(HttpStatus.NOT_FOUND);
       } else {
-         List<SubCategoryResponse> subCategoryResponseList = subCategoryConverter.toListDto(subCategoryList);
+         List<SubCategoryResponse> subCategoryResponseList = subCategoryConverter.toDtoSubCategoryList(subCategoryList);
 
          commonResponse.setData(subCategoryResponseList);
          commonResponse.setMessage("Accessed the subCategories successfully");
@@ -57,11 +57,11 @@ public class SubCategoryServiceImpl implements SubCategoryService {
                  .statusCode(HttpStatus.BAD_REQUEST).build();
       }
 
-      SubCategory subCategory = subCategoryConverter.toEntity(request);
+      SubCategory subCategory = subCategoryConverter.toEntitySubCategory(request);
 
       subCategoryRepository.save(subCategory);
 
-      SubCategoryResponse subCategoryResponse = subCategoryConverter.toDto(subCategory);
+      SubCategoryResponse subCategoryResponse = subCategoryConverter.toDtoSubCategory(subCategory);
 
       return CommonResponse.builder()
               .data(subCategoryResponse)
@@ -79,7 +79,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
          if (optionalSubCategory.isPresent()) {
 
             SubCategory subCategory = optionalSubCategory.get();
-            SubCategoryResponse subCategoryResponse = subCategoryConverter.toDto(subCategory);
+            SubCategoryResponse subCategoryResponse = subCategoryConverter.toDtoSubCategory(subCategory);
 
             return CommonResponse.builder()
                     .data(subCategoryResponse)

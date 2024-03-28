@@ -18,36 +18,47 @@ public class SubCategoryConverter {
    private final CategoryConverter categoryConverter;
    private final CategoryRepository categoryRepository;
 
-   public SubCategory toEntity(SubCategoryRequest dto) {
+//   public SubCategory toEntitySubCategory(SubCategoryRequest dto) {
+//
+//      SubCategory subCategory = new SubCategory();
+//
+//      subCategory.setName(dto.getName());
+//
+//      Category category = categoryRepository.findById(dto.getCategoryId())
+//              .orElseThrow(() -> new EntityNotFoundException("Category not found"));
+//      subCategory.setCategory(category);
+//
+//      subCategory.setShow(dto.isShow());
+//      return subCategory;
+//   }
 
-      SubCategory subCategory = new SubCategory();
-
-      subCategory.setName(dto.getName());
-
+   public SubCategory toEntitySubCategory(SubCategoryRequest dto) {
       Category category = categoryRepository.findById(dto.getCategoryId())
               .orElseThrow(() -> new EntityNotFoundException("Category not found"));
-      subCategory.setCategory(category);
 
-      subCategory.setShow(dto.isShow());
-      return subCategory;
+      return SubCategory.builder()
+              .name(dto.getName())
+              .category(category)
+              .isShow(dto.isShow())
+              .build();
    }
 
-   public SubCategoryResponse toDto(SubCategory entity) {
+   public SubCategoryResponse toDtoSubCategory(SubCategory entity) {
       return SubCategoryResponse.builder()
               .id(entity.getId())
               .name(entity.getName())
-              .category(categoryConverter.toDto(entity.getCategory()))
+              .category(categoryConverter.toDtoCategory(entity.getCategory()))
               .isShow(entity.isShow())
               .build();
    }
 
-   public List<SubCategoryResponse> toListDto(List<SubCategory> subCategoryList) {
+   public List<SubCategoryResponse> toDtoSubCategoryList(List<SubCategory> subCategoryList) {
 
-      List<SubCategoryResponse> list = new ArrayList<>();
+      List<SubCategoryResponse> subCategoryResponseList = new ArrayList<>();
 
       for (SubCategory subCategory : subCategoryList) {
-         list.add(toDto(subCategory));
+         subCategoryResponseList.add(toDtoSubCategory(subCategory));
       }
-      return list;
+      return subCategoryResponseList;
    }
 }
