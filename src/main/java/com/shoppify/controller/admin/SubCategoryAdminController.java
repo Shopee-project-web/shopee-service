@@ -1,9 +1,7 @@
 package com.shoppify.controller.admin;
 
 import com.shoppify.dto.CommonResponse;
-import com.shoppify.dto.payload.request.CategoryRequest;
 import com.shoppify.dto.payload.request.SubCategoryRequest;
-import com.shoppify.service.CategoryService;
 import com.shoppify.service.SubCategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

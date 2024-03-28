@@ -41,6 +41,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '3.2.1'
 	implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '3.1.8'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+	implementation group: 'org.springframework.security', name: 'spring-security-oauth2-client', version: '6.2.2'
+	implementation group: 'org.hibernate.validator', name: 'hibernate-validator', version: '8.0.0.Final'
+	implementation group: 'jakarta.validation', name: 'jakarta.validation-api', version: '3.0.2'
+
 
 
 }
