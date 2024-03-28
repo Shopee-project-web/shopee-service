@@ -1,17 +1,11 @@
 package com.shoppify.service.impl;
 
-import com.shoppify.converter.CategoryConverter;
 import com.shoppify.converter.SubCategoryConverter;
 import com.shoppify.dto.CommonResponse;
-import com.shoppify.dto.payload.request.CategoryRequest;
 import com.shoppify.dto.payload.request.SubCategoryRequest;
-import com.shoppify.dto.payload.response.CategoryResponse;
 import com.shoppify.dto.payload.response.SubCategoryResponse;
-import com.shoppify.entity.Category;
 import com.shoppify.entity.SubCategory;
-import com.shoppify.repository.CategoryRepository;
 import com.shoppify.repository.SubCategoryRepository;
-import com.shoppify.service.CategoryService;
 import com.shoppify.service.SubCategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

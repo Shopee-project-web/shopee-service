@@ -1,7 +1,6 @@
 package com.shoppify.configuration;
 
 import com.shoppify.security.JwtAuthFilter;
-import com.shoppify.service.impl.UserDetailServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,14 +28,18 @@ public class SecurityConfiguration {
         return http.
                 csrf().disable()
                 .authorizeHttpRequests(
-                        req -> req.requestMatchers("api/v1/users/login","api/v1/users/register")
-                                .permitAll()
+                        req -> req.requestMatchers("api/v1/auth/login","api/v1/auth/register")
+                                .anonymous()s
+                                .requestMatchers("/api/v1/admin/**")
+                                .hasAnyAuthority("ROLE_ADMIN")
                                 .anyRequest()
                                 .authenticated()
+
                 ).userDetailsService(userDetailService)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                        .and()
-                        .authenticationProvider(authenticationProvider()))
+                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .authenticationProvider(authenticationProvider())
+
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
