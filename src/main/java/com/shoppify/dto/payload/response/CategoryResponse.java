@@ -8,5 +8,6 @@ import lombok.Data;
 public class CategoryResponse {
    private long id;
    private String name;
+   private String imageUrl;
    private boolean isShow;
 }

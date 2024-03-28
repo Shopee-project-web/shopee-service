@@ -23,6 +23,7 @@ public class CategoryConverter {
       return CategoryResponse.builder()
               .id(entity.getId())
               .name(entity.getName())
+              .imageUrl(entity.getImageUrl())
               .isShow(entity.isShow())
               .build();
    }

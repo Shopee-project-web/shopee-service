@@ -29,13 +29,13 @@ public class CategoryServiceImpl implements CategoryService {
       if (categoryList.isEmpty()) {
 
          commonResponse.setData(null);
-         commonResponse.setMessage("Categories not found");
+         commonResponse.setMessage("Truy cập các danh mục hệ thống không tìm thấy.");
          commonResponse.setStatusCode(HttpStatus.NOT_FOUND);
       } else {
          List<CategoryResponse> categoryResponseList = categoryConverter.toDtoCategoryList(categoryList);
 
          commonResponse.setData(categoryResponseList);
-         commonResponse.setMessage("Accessed the categories successfully");
+         commonResponse.setMessage("Truy cập các danh mục hệ thống thành công.");
          commonResponse.setStatusCode(HttpStatus.OK);
       }
       return commonResponse;
@@ -48,7 +48,7 @@ public class CategoryServiceImpl implements CategoryService {
 
          return CommonResponse.builder()
                  .data(null)
-                 .message("Category with name " + request.getName() + " already exists")
+                 .message("Danh mục với tên " + request.getName() + " hệ thống đã tồn tại.")
                  .statusCode(HttpStatus.BAD_REQUEST).build();
       }
 
@@ -59,7 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
 
       return CommonResponse.builder()
               .data(categoryResponse)
-              .message("Add category successfully")
+              .message("Thêm danh mục vào hệ thông thành công.")
               .statusCode(HttpStatus.CREATED)
               .build();
    }
@@ -68,7 +68,7 @@ public class CategoryServiceImpl implements CategoryService {
    public CommonResponse updateCategory(Long id, CategoryRequest request) {
       try {
          Category existingCategory = categoryRepository.findById(id)
-                 .orElseThrow(() -> new RuntimeException("Category not found"));
+                 .orElseThrow(() -> new RuntimeException("Truy cập danh mục hệ thống không tìm thấy."));
 
          Category updatedCategory = categoryConverter.toEntityCategory(request);
 
@@ -79,12 +79,12 @@ public class CategoryServiceImpl implements CategoryService {
 
          return CommonResponse.builder()
                  .data(categoryConverter.toDtoCategory(existingCategory))
-                 .message("Category updated successfully")
+                 .message("Cập nhật danh mục hệ thống thành công.")
                  .statusCode(HttpStatus.OK).build();
       } catch (Exception e) {
          return CommonResponse.builder()
                  .data(null)
-                 .message("Error updating category: " + e.getMessage())
+                 .message("Cập nhật danh mục hệ thống bị lỗi: " + e.getMessage())
                  .statusCode(HttpStatus.INTERNAL_SERVER_ERROR)
                  .build();
       }
@@ -101,14 +101,14 @@ public class CategoryServiceImpl implements CategoryService {
 
             return CommonResponse.builder()
                     .data(categoryShowResponse)
-                    .message("Category retrieved successfully")
+                    .message("Truy cập danh mục hệ thống thành công.")
                     .statusCode(HttpStatus.OK)
                     .build();
          } else {
 
             return CommonResponse.builder()
                     .data(null)
-                    .message("Category not found")
+                    .message("Truy cập danh mục hệ thống không thành công.")
                     .statusCode(HttpStatus.NOT_FOUND)
                     .build();
          }
@@ -116,7 +116,7 @@ public class CategoryServiceImpl implements CategoryService {
 
          return CommonResponse.builder()
                  .data(null)
-                 .message("Error retrieving category: " + e.getMessage()).statusCode(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                 .message("Truy cập danh mục hệ thống lỗi: " + e.getMessage()).statusCode(HttpStatus.INTERNAL_SERVER_ERROR).build();
       }
    }
 }

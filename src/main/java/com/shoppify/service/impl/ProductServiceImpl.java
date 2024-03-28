@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
       if(productList.isEmpty()) {
 
          commonResponse.setData(null);
-         commonResponse.setMessage("Products not found");
+         commonResponse.setMessage("Truy cập các sản phẩm hệ thống không tìm thấy.");
          commonResponse.setStatusCode(HttpStatus.NOT_FOUND);
       }
       else {
@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
          List<ProductResponse> productResponseList = productConverter.toDtoProductList(productList);
 
          commonResponse.setData(productResponseList);
-         commonResponse.setMessage("Accessed the products successfully");
+         commonResponse.setMessage("Truy cập các sản phẩm hệ thống thành công.");
          commonResponse.setStatusCode(HttpStatus.OK);
       }
       return commonResponse;
@@ -59,13 +59,13 @@ public class ProductServiceImpl implements ProductService {
 
             return CommonResponse.builder()
                     .data(productResponse)
-                    .message("Product retrieved successfully")
+                    .message("Truy cập sản phẩm thành công.")
                     .statusCode(HttpStatus.OK).build();
          } else {
 
             return CommonResponse.builder()
                     .data(null)
-                    .message("Product not found")
+                    .message("Truy cập sản phẩm không tìm thấy.")
                     .statusCode(HttpStatus.NOT_FOUND)
                     .build();
          }
@@ -73,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
 
          return CommonResponse.builder()
                  .data(null)
-                 .message("Error retrieving product: " + e.getMessage())
+                 .message("Truy cập sản phẩm hệ thống bị lỗi: " + e.getMessage())
                  .statusCode(HttpStatus.INTERNAL_SERVER_ERROR)
                  .build();
       }
@@ -87,13 +87,13 @@ public class ProductServiceImpl implements ProductService {
       if(productList.isEmpty()) {
 
          commonResponse.setData(null);
-         commonResponse.setMessage("Products not found");
+         commonResponse.setMessage("Truy cập các sản phẩm theo danh mục không tìm thấy.");
          commonResponse.setStatusCode(HttpStatus.NOT_FOUND);
       }
       else {
          List<ProductResponse> productResponseList = productConverter.toDtoProductList(productList);
          commonResponse.setData(productResponseList);
-         commonResponse.setMessage("Accessed the products successfully");
+         commonResponse.setMessage("Truy cập các sản phẩm theo danh mục hệ thống thành công.");
          commonResponse.setStatusCode(HttpStatus.OK);
       }
       return commonResponse;
@@ -107,13 +107,13 @@ public class ProductServiceImpl implements ProductService {
       if(productList.isEmpty()) {
 
          commonResponse.setData(null);
-         commonResponse.setMessage("Products not found");
+         commonResponse.setMessage("Truy cập sản phẩm theo danh mục con không tìm thấy.");
          commonResponse.setStatusCode(HttpStatus.NOT_FOUND);
       }
       else {
          List<ProductResponse> productResponseList = productConverter.toDtoProductList(productList);
          commonResponse.setData(productResponseList);
-         commonResponse.setMessage("Accessed the products successfully");
+         commonResponse.setMessage("Truy cập các sản phẩm hệ thống theo danh mục con thành công.");
          commonResponse.setStatusCode(HttpStatus.OK);
       }
       return commonResponse;

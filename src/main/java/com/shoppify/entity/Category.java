@@ -21,6 +21,9 @@ public class Category {
    @Column(name = "NAME")
    private String name;
 
+   @Column(name = "IMAGE_URL")
+   private String imageUrl;
+
    @Column(name = "IS_SHOW")
    private boolean isShow;
 

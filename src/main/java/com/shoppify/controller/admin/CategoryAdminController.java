@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/admin/categories")
+@RequestMapping("api/v1/admin/categories")
 @CrossOrigin("*")
 @RequiredArgsConstructor
 public class CategoryAdminController {
