@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class VariantResponse {
    private long id;
-   private ColorResponse color;
-   private SizeResponse size;
+   private ColorResponse colorResponse;
+   private SizeResponse sizeResponse;
 }

@@ -18,8 +18,8 @@ public class VariantConverter {
    public VariantResponse toDtoVariant(Variant variant) {
       return VariantResponse.builder()
               .id(variant.getId())
-              .color(colorConverter.toDtoColor(variant.getColor()))
-              .size(sizeConverter.toDtoSize(variant.getSize()))
+              .colorResponse(colorConverter.toDtoColor(variant.getColor()))
+              .sizeResponse(sizeConverter.toDtoSize(variant.getSize()))
               .build();
    }
 

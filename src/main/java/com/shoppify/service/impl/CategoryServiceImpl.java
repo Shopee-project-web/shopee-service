@@ -42,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
    }
 
    @Override
-   public CommonResponse addCategory(CategoryRequest request) {
+   public CommonResponse createCategory(CategoryRequest request) {
 
       if (categoryRepository.existsByName(request.getName())) {
 
@@ -73,6 +73,7 @@ public class CategoryServiceImpl implements CategoryService {
          Category updatedCategory = categoryConverter.toEntityCategory(request);
 
          existingCategory.setName(updatedCategory.getName());
+         existingCategory.setImageUrl(updatedCategory.getImageUrl());
          existingCategory.setShow(updatedCategory.isShow());
 
          categoryRepository.save(existingCategory);
@@ -80,7 +81,8 @@ public class CategoryServiceImpl implements CategoryService {
          return CommonResponse.builder()
                  .data(categoryConverter.toDtoCategory(existingCategory))
                  .message("Cập nhật danh mục hệ thống thành công.")
-                 .statusCode(HttpStatus.OK).build();
+                 .statusCode(HttpStatus.OK)
+                 .build();
       } catch (Exception e) {
          return CommonResponse.builder()
                  .data(null)
@@ -105,7 +107,6 @@ public class CategoryServiceImpl implements CategoryService {
                     .statusCode(HttpStatus.OK)
                     .build();
          } else {
-
             return CommonResponse.builder()
                     .data(null)
                     .message("Truy cập danh mục hệ thống không thành công.")
@@ -113,7 +114,6 @@ public class CategoryServiceImpl implements CategoryService {
                     .build();
          }
       } catch (Exception e) {
-
          return CommonResponse.builder()
                  .data(null)
                  .message("Truy cập danh mục hệ thống lỗi: " + e.getMessage()).statusCode(HttpStatus.INTERNAL_SERVER_ERROR).build();

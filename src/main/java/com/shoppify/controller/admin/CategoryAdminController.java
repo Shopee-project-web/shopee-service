@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryAdminController {
    private final CategoryService categoryService;
 
-   @GetMapping("/all")
+   @GetMapping()
    public ResponseEntity<CommonResponse> getAllCategory() {
       CommonResponse commonResponse = categoryService.findAllCategory();
       return new ResponseEntity<>(commonResponse, HttpStatus.OK);
    }
 
-   @PostMapping("/add")
-   public ResponseEntity<CommonResponse> addCategory(@RequestBody CategoryRequest request) {
-      CommonResponse commonResponse = categoryService.addCategory(request);
+   @PostMapping("/create")
+   public ResponseEntity<CommonResponse> createCategory(@RequestBody CategoryRequest request) {
+      CommonResponse commonResponse = categoryService.createCategory(request);
       return new ResponseEntity<>(commonResponse, HttpStatus.CREATED);
    }
 
@@ -33,7 +33,7 @@ public class CategoryAdminController {
       return new ResponseEntity<>(commonResponse, HttpStatus.OK);
    }
 
-   @PutMapping("/put/{id}")
+   @PutMapping("/{id}")
    public ResponseEntity<CommonResponse> updateCategory(@PathVariable Long id,
                                                         @RequestBody CategoryRequest request) {
       CommonResponse commonResponse = categoryService.updateCategory(id,request);

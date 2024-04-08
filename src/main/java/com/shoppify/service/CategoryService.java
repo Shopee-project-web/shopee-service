@@ -6,10 +6,12 @@ import com.shoppify.dto.payload.request.CategoryRequest;
 public interface CategoryService {
 
    CommonResponse findAllCategory();
-   CommonResponse addCategory(CategoryRequest request);
+
+   CommonResponse createCategory(CategoryRequest request);
+
+   CommonResponse getCategoryById(Long id);
 
    CommonResponse updateCategory(Long id, CategoryRequest request);
 
-   CommonResponse getCategoryById(Long id);
 
 }

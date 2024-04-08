@@ -15,6 +15,7 @@ public class CategoryConverter {
       Category category = new Category();
 
       category.setName(dto.getName());
+      category.setImageUrl(dto.getImageUrl());
       category.setShow(dto.isShow());
       return category;
    }

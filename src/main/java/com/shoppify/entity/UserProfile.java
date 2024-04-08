@@ -18,6 +18,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -36,7 +37,7 @@ public class UserProfile {
     @Column(name = "GENDER")
     private String gender;
     @Column(name = "DATE_OF_BIRTH")
-    private String dateOfBirth;
+    private Date dateOfBirth;
     @Column(name = "AVATAR_URL")
     private String avatarUrl;
     @Column(name = "CREATE_ON")

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProductAdminController {
    private final ProductService productService;
 
-   @GetMapping("/all")
+   @GetMapping
    public ResponseEntity<CommonResponse> getAllProduct() {
       CommonResponse commonResponse = productService.findAllProduct();
       return new ResponseEntity<>(commonResponse, HttpStatus.OK);
@@ -27,16 +27,6 @@ public class ProductAdminController {
       return new ResponseEntity<>(commonResponse, HttpStatus.OK);
    }
 
-   @GetMapping("/category/{categoryId}")
-   public ResponseEntity<CommonResponse> getProductByCategoryId(@PathVariable Long categoryId) {
-      CommonResponse commonResponse = productService.getProductByCategoryId(categoryId);
-      return new ResponseEntity<>(commonResponse, HttpStatus.OK);
-   }
-   @GetMapping("/subCategory/{subCategoryId}")
-   public ResponseEntity<CommonResponse> getProductBySubCategoryId(@PathVariable Long subCategoryId) {
-      CommonResponse commonResponse = productService.getProductBySubCategoryId(subCategoryId);
-      return new ResponseEntity<>(commonResponse, HttpStatus.OK);
-   }
 //   @PostMapping("/add")
 //   public ResponseEntity<CommonResponse> addProduct(@RequestBody ProductRequest request) {
 //      CommonResponse commonResponse = productService.addProduct(request);

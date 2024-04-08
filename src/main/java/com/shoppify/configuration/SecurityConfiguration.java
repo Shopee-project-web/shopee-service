@@ -1,7 +1,6 @@
 package com.shoppify.configuration;
 
 import com.shoppify.security.JwtAuthFilter;
-import com.shoppify.service.impl.UserDetailServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,44 +21,47 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfiguration {
-    private final UserDetailsService userDetailService;
-    private final JwtAuthFilter jwtAuthFilter;
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        return http.
-                csrf().disable()
-                .authorizeHttpRequests(
-                        req -> req.requestMatchers("api/v1/auths/login",
-                                        "api/v1/auths/register",
-                                        "api/v1/home/**",
-                                        "api/v1/admin/**"
-                                )
-                                .permitAll()
-                                .anyRequest()
-                                .authenticated()
-                ).userDetailsService(userDetailService)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                        .and()
-                        .authenticationProvider(authenticationProvider()))
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
-    }
+   private final UserDetailsService userDetailService;
+   private final JwtAuthFilter jwtAuthFilter;
 
-    @Bean
-    public PasswordEncoder bcryptEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+   @Bean
+   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+      return http
+              .csrf().disable()
+              .authorizeHttpRequests(
+                      req -> req
+                              .requestMatchers("api/v1/home/**" )
+                              .permitAll()
+                              .requestMatchers("api/v1/auth/login", "api/v1/auth/register")
+                              .anonymous()
+                              .requestMatchers("/api/v1/admin/**")
+                              .hasAnyAuthority("ROLE_ADMIN")
+                              .anyRequest().authenticated()
 
-    @Bean
-    public AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailService);
-        authenticationProvider.setPasswordEncoder(bcryptEncoder());
-        return authenticationProvider;
-    }
+              ).userDetailsService(userDetailService)
+              .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+              )
+              .authenticationProvider(authenticationProvider())
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
+              .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+              .build();
+   }
+
+   @Bean
+   public PasswordEncoder bcryptEncoder() {
+      return new BCryptPasswordEncoder();
+   }
+
+   @Bean
+   public AuthenticationProvider authenticationProvider() {
+      DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+      authenticationProvider.setUserDetailsService(userDetailService);
+      authenticationProvider.setPasswordEncoder(bcryptEncoder());
+      return authenticationProvider;
+   }
+
+   @Bean
+   public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+      return configuration.getAuthenticationManager();
+   }
 }

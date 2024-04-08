@@ -5,6 +5,7 @@ import com.shoppify.dto.CommonResponse;
 import com.shoppify.dto.payload.request.SubCategoryRequest;
 import com.shoppify.dto.payload.response.SubCategoryResponse;
 import com.shoppify.entity.SubCategory;
+import com.shoppify.repository.CategoryRepository;
 import com.shoppify.repository.SubCategoryRepository;
 import com.shoppify.service.SubCategoryService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class SubCategoryServiceImpl implements SubCategoryService {
    private final SubCategoryRepository subCategoryRepository;
    private final SubCategoryConverter subCategoryConverter;
+   private final CategoryRepository categoryRepository;
 
    @Override
    public CommonResponse findAllSubCategory() {
@@ -47,13 +49,13 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 
 
    @Override
-   public CommonResponse addSubCategory(SubCategoryRequest request) {
+   public CommonResponse createSubCategory(SubCategoryRequest request) {
 
       if (subCategoryRepository.existsByName(request.getName())) {
 
          return CommonResponse.builder()
                  .data(null)
-                 .message("SubCategory with name " + request.getName() + " already exists")
+                 .message("Danh mục con với tên " + request.getName() + " hệ thống đã tồn tại.")
                  .statusCode(HttpStatus.BAD_REQUEST).build();
       }
 
@@ -65,7 +67,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 
       return CommonResponse.builder()
               .data(subCategoryResponse)
-              .message("Add SubCategory successfully")
+              .message("Thêm danh mục con vào hệ thông thành công.")
               .statusCode(HttpStatus.CREATED)
               .build();
    }
@@ -83,14 +85,14 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 
             return CommonResponse.builder()
                     .data(subCategoryResponse)
-                    .message("SubCategory retrieved successfully")
+                    .message("Truy cập danh mục con hệ thống thành công.")
                     .statusCode(HttpStatus.OK)
                     .build();
          } else {
 
             return CommonResponse.builder()
                     .data(null)
-                    .message("SubCategory not found")
+                    .message("Truy cập danh mục con hệ thống không thành công.")
                     .statusCode(HttpStatus.NOT_FOUND)
                     .build();
          }
@@ -98,7 +100,35 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 
          return CommonResponse.builder()
                  .data(null)
-                 .message("Error retrieving SubCategory: " + e.getMessage()).statusCode(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                 .message("Truy cập danh mục hệ thống lỗi: " + e.getMessage()).statusCode(HttpStatus.INTERNAL_SERVER_ERROR).build();
+      }
+   }
+
+   @Override
+   public CommonResponse updateSubcategory(Long id, SubCategoryRequest request) {
+      try   {
+         SubCategory existingSubCategory = subCategoryRepository.findById(id)
+                 .orElseThrow( () -> new RuntimeException(" Truy cập danh mục con hệ thống không tìm thấy."));
+         SubCategory updateSubcategory = subCategoryConverter.toEntitySubCategory(request);
+         existingSubCategory.setName(updateSubcategory.getName());
+         existingSubCategory.setCategory(updateSubcategory.getCategory());
+         existingSubCategory.setShow(updateSubcategory.isShow());
+
+         subCategoryRepository.save(existingSubCategory);
+
+         return CommonResponse.builder()
+                 .data(subCategoryConverter.toDtoSubCategory(existingSubCategory))
+                 .message("Cập nhật danh mục con hệ thống thành công.")
+                 .statusCode(HttpStatus.OK)
+                 .build();
+
+      }catch (Exception e) {
+         return CommonResponse.builder()
+                 .data(null)
+                 .message("Cập nhật danh mục con hệ thống bị lỗi: " + e.getMessage())
+                 .statusCode(HttpStatus.INTERNAL_SERVER_ERROR)
+                 .build();
+
       }
    }
 }

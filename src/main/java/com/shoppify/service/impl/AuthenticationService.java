@@ -1,5 +1,6 @@
 package com.shoppify.service.impl;
 
+import com.shoppify.service.UserProfileService;
 import com.shoppify.converter.UserConverter;
 import com.shoppify.dto.payload.request.LoginRequest;
 import com.shoppify.dto.payload.request.RegisterRequest;
@@ -35,21 +36,22 @@ public class AuthenticationService {
     private final RoleRepository roleRepository;
     private final AuthenticationManager authenticationManager;
     private final UserConverter userConverter;
+    private final UserProfileService userProfileService;
 
     public boolean register(RegisterRequest request){
         if (!userRepository.existsUserByUsername(request.getUsername())){
-            Role role = roleRepository.findByName("CUSTOMER");
+            Role role = roleRepository.findByName("ROLE_CUSTOMER");
             if (role != null) {
+
                 User user = userConverter.convertDtoToUser(request);
                 user.setPassword(passwordEncoder.encode(request.getPassword()));
                 List<Role> roles = new ArrayList<>();
                 roles.add(role);
                 user.setRoleList(roles);
-
                 userRepository.save(user);
+                userProfileService.setDefaultProfile(user);
                 return true;
             }
-            return false;
         }
         return false;
     }
@@ -67,7 +69,7 @@ public class AuthenticationService {
                     .httpOnly(true)
                     .secure(false)
                     .path("/")
-                    .maxAge(18000)
+                    .maxAge(180000000)
                     .build();
             response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
             return ResponseEntity.ok()

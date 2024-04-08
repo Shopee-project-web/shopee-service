@@ -1,18 +1,13 @@
 package com.shoppify.converter;
 
-import com.shoppify.dto.payload.request.ProductImageRequest;
-import com.shoppify.dto.payload.request.ProductRequest;
-import com.shoppify.dto.payload.request.VariantRequest;
 import com.shoppify.dto.payload.response.ProductResponse;
 import com.shoppify.entity.*;
-import com.shoppify.exception.EntityNotFoundException;
 import com.shoppify.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -36,6 +31,7 @@ public class ProductConverter {
               .name(entity.getName())
               .price(entity.getPrice())
               .stock(entity.getStock())
+              .star(entity.getStar())
               .description(entity.getDescription())
               .isShow(entity.isShow())
 
