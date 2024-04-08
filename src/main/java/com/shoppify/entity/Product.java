@@ -28,6 +28,9 @@ public class Product {
    @Column(name = "STOCK")
    private int stock;
 
+   @Column(name = "STAR")
+   private int star;
+
    @Column(name = "DESCRIPTION")
    private String description;
 

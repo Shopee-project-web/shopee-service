@@ -21,44 +21,47 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfiguration {
-    private final UserDetailsService userDetailService;
-    private final JwtAuthFilter jwtAuthFilter;
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        return http.
-                csrf().disable()
-                .authorizeHttpRequests(
-                        req -> req.requestMatchers("api/v1/auth/login","api/v1/auth/register")
-                                .anonymous()s
-                                .requestMatchers("/api/v1/admin/**")
-                                .hasAnyAuthority("ROLE_ADMIN")
-                                .anyRequest()
-                                .authenticated()
+   private final UserDetailsService userDetailService;
+   private final JwtAuthFilter jwtAuthFilter;
 
-                ).userDetailsService(userDetailService)
-                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-                .authenticationProvider(authenticationProvider())
+   @Bean
+   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+      return http
+              .csrf().disable()
+              .authorizeHttpRequests(
+                      req -> req
+                              .requestMatchers("api/v1/home/**" )
+                              .permitAll()
+                              .requestMatchers("api/v1/auth/login", "api/v1/auth/register")
+                              .anonymous()
+                              .requestMatchers("/api/v1/admin/**")
+                              .hasAnyAuthority("ROLE_ADMIN")
+                              .anyRequest().authenticated()
 
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
-    }
+              ).userDetailsService(userDetailService)
+              .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+              )
+              .authenticationProvider(authenticationProvider())
 
-    @Bean
-    public PasswordEncoder bcryptEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+              .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+              .build();
+   }
 
-    @Bean
-    public AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailService);
-        authenticationProvider.setPasswordEncoder(bcryptEncoder());
-        return authenticationProvider;
-    }
+   @Bean
+   public PasswordEncoder bcryptEncoder() {
+      return new BCryptPasswordEncoder();
+   }
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
+   @Bean
+   public AuthenticationProvider authenticationProvider() {
+      DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+      authenticationProvider.setUserDetailsService(userDetailService);
+      authenticationProvider.setPasswordEncoder(bcryptEncoder());
+      return authenticationProvider;
+   }
+
+   @Bean
+   public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+      return configuration.getAuthenticationManager();
+   }
 }

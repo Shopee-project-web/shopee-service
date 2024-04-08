@@ -16,6 +16,8 @@ public class ProductResponse {
 
    private int stock;
 
+   private int star;
+
    private String description;
 
    private boolean isShow;

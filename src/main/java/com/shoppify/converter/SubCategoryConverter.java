@@ -4,7 +4,7 @@ import com.shoppify.dto.payload.request.SubCategoryRequest;
 import com.shoppify.dto.payload.response.SubCategoryResponse;
 import com.shoppify.entity.Category;
 import com.shoppify.entity.SubCategory;
-import com.shoppify.exception.EntityNotFoundException;
+import com.shoppify.exception.CategoryNotFoundException;
 import com.shoppify.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class SubCategoryConverter {
 
    public SubCategory toEntitySubCategory(SubCategoryRequest dto) {
       Category category = categoryRepository.findById(dto.getCategoryId())
-              .orElseThrow(() -> new EntityNotFoundException("Category not found"));
+              .orElseThrow(() -> new CategoryNotFoundException("Truy cập danh mục hệ thống KHÔNG tìm thấy!"));
 
       return SubCategory.builder()
               .name(dto.getName())

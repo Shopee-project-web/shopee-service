@@ -12,6 +12,7 @@ public class ProductRequest {
    private String name;
    private double price;
    private int stock;
+   private int star;
    private String description;
    private boolean isShow;
    private Long categoryId;

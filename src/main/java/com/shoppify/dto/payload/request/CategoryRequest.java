@@ -7,5 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class CategoryRequest {
    private String name;
+   private String imageUrl;
    private boolean isShow;
 }
