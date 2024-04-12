@@ -23,4 +23,9 @@ public class CategoryController {
       return new ResponseEntity<>(commonResponse, HttpStatus.OK);
    }
 
+   @RequestMapping()
+   public ResponseEntity<CommonResponse> getAllCategoryDemo() {
+      CommonResponse commonResponse = categoryService.findAllCategory();
+      return new ResponseEntity<>(commonResponse, HttpStatus.OK);
+   }
 }
