@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoryController {
    private final CategoryService categoryService;
 
-//   xzXZX
+
    @RequestMapping()
    public ResponseEntity<CommonResponse> getAllCategory() {
       CommonResponse commonResponse = categoryService.findAllCategory();
       return new ResponseEntity<>(commonResponse, HttpStatus.OK);
-   }
 
+   }
 }
+
+
